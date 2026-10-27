@@ -13,27 +13,6 @@
 
 cvitea is built by one person working with coding agents (Claude Code). The focus is on steering, reviewing and approving: the owner sets the goals and the rules and decides on every release; a coordinating agent session breaks the work into tasks, approves their plans under rules the owner sets and reviews their results; coding agents plan and build within these rules, under automated checks and the owner's approval.
 
-## By the numbers
-
-Counted from git and from the board of the coordinating session, up to release 46. Commits come from the agent sessions: each task commits its own work, and the coordinating session merges it.
-
-| Figure | Value | How it is counted |
-|---|---|---|
-| Commits | 1,515 | All commits on the main branch up to the commit of release 46, 200 of them merges |
-| Releases | 46 | Release numbers up to 46; a few early releases carry no number or a letter |
-| Tasks | 107 | Numbered tasks on the board, S1 to S108; S9 was never given. Each had its own brief, in its own session or subagent |
-| Version 1.0 | October 2026 | See [Where it stands](../README.md#where-it-stands) |
-
-<details>
-<summary>The commands</summary>
-
-```bash
-git rev-list --count <commit of release 46>
-git rev-list --count --merges <commit of release 46>
-```
-
-</details>
-
 ## Roles
 
 - **Owner.** Sets goals and rules and makes the product decisions. Approves the plans that change the way of working or contain critical steps, every production deploy and every push. Only the owner maintains content and decides over personal data.
@@ -84,7 +63,7 @@ The last full run, in October 2026: 2,528 of 2,530 Pest tests passed on SQLite a
 
 ## Agents inside the product
 
-The same way of working runs inside cvitea itself. AI agents connect over the Model Context Protocol: Claude Desktop and claude.ai with an OAuth sign-in, command-line agents with a personal token. As of release 46:
+The same way of working runs inside cvitea itself. AI agents connect over the Model Context Protocol: Claude Desktop and claude.ai with an OAuth sign-in, command-line agents with a personal token. As of October 2026:
 
 - 11 tools: seven read career data, documents, options, upload status and preview links; four write proposals or start uploads.
 - 9 scopes: one for everything and eight narrower ones by area and action, so a personal token only reaches what its task needs. Claude Desktop and claude.ai sign in with the scope for everything; the scope for preview links has to be granted on its own.

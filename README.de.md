@@ -15,14 +15,7 @@ cvitea ist ein persönliches Projekt und eine Arbeitsprobe in Agentic Engineerin
 - ein massgeschneidertes Profil für jeden Arbeitgeber, hinter einem persönlichen Einladungslink,
 - eine Web-App, in der AI Agents entwerfen und der Owner entscheidet, was erscheint.
 
-Version 1.0 und die Releases seither laufen produktiv für die Person, die sie gebaut hat. Dieses Repository zeigt, wie es funktioniert, wie es entsteht und was als Nächstes kommt. Der Quellcode ist privat.
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/at-a-glance.de.dark.svg">
-  <img src="assets/at-a-glance.de.light.svg" width="100%" alt="Auf einen Blick, aus Git und Board gezählt bis Release 46: 1’515 Commits auf dem Hauptzweig, davon 200 Merges, 46 Releases nach Release-Nummer gezählt, 107 Aufgaben.">
-</picture>
-
-<sub>Methode und Quellen: [In Zahlen](docs/how-its-built.de.md#in-zahlen).</sub>
+Version 1.0 und die Releases seither laufen produktiv. Dieses Repository zeigt, wie es funktioniert, wie es entsteht und was als Nächstes kommt. Der Quellcode ist privat.
 
 ## In Bildern
 
@@ -64,10 +57,10 @@ Womit der Owner arbeitet: das Cockpit mit den Aufgaben des Tages und der Editor 
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/timeline.de.dark.svg">
-  <img src="assets/timeline.de.light.svg" width="100%" alt="Meilensteine bis Release 46, in sechs Phasen: das Fundament und das erste Release; Bausteine als Quelle und AI Agents, die per MCP vorschlagen; die Gästeseiten, Coding Agents parallel, der Name cvitea und eine PIN nach Wahl; die Web-App mit Abgleich zu GitHub und LinkedIn; Version 1.0; Titelbilder, ein neuer Editor und ein neuer Kopf auf Tablet und Handy.">
+  <img src="assets/timeline.de.light.svg" width="100%" alt="Meilensteine, Stand Oktober 2026, in sechs Phasen: das Fundament und das erste Release; Bausteine als Quelle und AI Agents, die per MCP vorschlagen; die Gästeseiten, Coding Agents parallel, der Name cvitea und eine PIN nach Wahl; die Web-App mit Abgleich zu GitHub und LinkedIn; Version 1.0; Titelbilder, ein neuer Editor und ein neuer Kopf auf Tablet und Handy.">
 </picture>
 
-Vom ersten Commit bis Version 1.0 und weiter bis Release 46.
+Vom ersten Commit bis Version 1.0 und darüber hinaus.
 
 <details>
 <summary>Die Meilensteine als Text</summary>
@@ -86,7 +79,7 @@ Vom ersten Commit bis Version 1.0 und weiter bis Release 46.
 
 </details>
 
-**Was es heute kann** (Stand Release 46)
+**Was es heute kann** (Stand Oktober 2026)
 
 - Öffentliche Visitenkarte und ein privates Profil je Bewerbung, auf Deutsch und Englisch, für Gäste dunkel als Standard und hell auf Wunsch
 - Online-Lebenslauf und Dokumente mit einem Download für alle, eine Akzentfarbe je Bewerbung und eine PIN nach Wahl je Einladungslink
@@ -106,7 +99,7 @@ Vom ersten Commit bis Version 1.0 und weiter bis Release 46.
   <img src="assets/roadmap.de.light.svg" width="100%" alt="Roadmap: jetzt v1.0 im Einsatz; als Nächstes ein Bewerbungs-Tracker und Werkzeuge zur Vorbereitung; später Jobsuche und Karte, mehr Anbindungen, ein Entwurfs-Assistent, Passkeys und Telefon; dann offene Ideen.">
 </picture>
 
-Erst die eigene Nutzung: Jeder Schritt baut auf den Daten des vorigen auf.
+Jeder Schritt baut auf den Daten des vorigen auf.
 
 Reihenfolge, Gründe und offene Ideen: [ROADMAP.de.md](ROADMAP.de.md)
 
@@ -119,7 +112,7 @@ Eine Person steuert cvitea und baut es mit Coding Agents. Der Owner setzt die Zi
   <img src="assets/quality.de.light.svg" width="100%" alt="Voller Prüfweg, Oktober 2026: 2’528 bestandene Tests auf SQLite und 2’520 auf MariaDB, 1’113 Browser-Tests mit axe in 53 Dateien, Lighthouse-Wert für Barrierefreiheit 1,0 in 15 Läufen auf fünf Seiten, 34 Header-Prüfungen in Produktion.">
 </picture>
 
-Rollen, Regeln, Prüfweg und Zahlen: [So entsteht cvitea](docs/how-its-built.de.md)
+Rollen, Regeln und Prüfweg: [So entsteht cvitea](docs/how-its-built.de.md)
 
 ## Zu diesem Repository
 

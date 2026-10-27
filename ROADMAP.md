@@ -11,11 +11,11 @@
 
 # Roadmap
 
-As of release 46. The order is a plan, not a promise; the later a step, the more open it is.
+As of October 2026. The order is a plan, not a promise; the later a step, the more open it is.
 
 ## The order and why
 
-**Own use first.** Each step uses the data of the one before: the tracker and the building blocks feed the job search, the job search feeds the assistant, and the assistant writes from building blocks that already exist.
+Each step uses the data of the one before: the tracker and the building blocks feed the job search, the job search feeds the assistant, and the assistant writes from building blocks that already exist.
 
 ## Now · v1.0 in use
 

@@ -15,14 +15,7 @@ cvitea is a personal project and a work sample in agentic engineering. The appli
 - a tailored profile for every employer, behind a personal invitation link,
 - a web app in which AI agents draft and the owner decides what is published.
 
-Version 1.0 and the releases since run in production for the person who built them. This repository shows how it works, how it is built and what comes next. The source code is private.
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/at-a-glance.en.dark.svg">
-  <img src="assets/at-a-glance.en.light.svg" width="100%" alt="At a glance, counted from git and the board up to release 46: 1,515 commits on the main branch, 200 of them merges, 46 releases counted by release number, 107 tasks.">
-</picture>
-
-<sub>Method and sources: [By the numbers](docs/how-its-built.md#by-the-numbers).</sub>
+Version 1.0 and the releases since run in production. This repository shows how it works, how it is built and what comes next. The source code is private.
 
 ## In pictures
 
@@ -64,10 +57,10 @@ What the owner works with: the cockpit with today's tasks, and the editor of a b
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/timeline.en.dark.svg">
-  <img src="assets/timeline.en.light.svg" width="100%" alt="Milestones up to release 46, in six phases: the foundation and the first release; building blocks as the source and agents proposing over MCP; the guest pages, coding agents in parallel, the name cvitea and an optional PIN; the web app with GitHub sync and LinkedIn import; version 1.0; hero media, a new editor and a new head on tablets and phones.">
+  <img src="assets/timeline.en.light.svg" width="100%" alt="Milestones as of October 2026, in six phases: the foundation and the first release; building blocks as the source and agents proposing over MCP; the guest pages, coding agents in parallel, the name cvitea and an optional PIN; the web app with GitHub sync and LinkedIn import; version 1.0; hero media, a new editor and a new head on tablets and phones.">
 </picture>
 
-From the first commit to version 1.0, and on to release 46.
+From the first commit to version 1.0 and beyond.
 
 <details>
 <summary>The milestones as text</summary>
@@ -86,7 +79,7 @@ From the first commit to version 1.0, and on to release 46.
 
 </details>
 
-**What it does today** (as of release 46)
+**What it does today** (as of October 2026)
 
 - Public business card and a private profile per application, in German and English, dark by default for guests and light on request
 - Online CV and documents with one download for all of them, an accent colour per application and an optional PIN per invitation link
@@ -106,7 +99,7 @@ From the first commit to version 1.0, and on to release 46.
   <img src="assets/roadmap.en.light.svg" width="100%" alt="Roadmap: v1.0 in use now; next an application tracker and preparation tools; later job search and map, more connections, a drafting assistant, passkeys and phone; then open ideas.">
 </picture>
 
-Own use first: every step builds on the data of the one before.
+Every step builds on the data of the one before.
 
 Order, reasons and open ideas: [ROADMAP.md](ROADMAP.md)
 
@@ -119,7 +112,7 @@ One person steers cvitea and builds it with coding agents. The owner sets the go
   <img src="assets/quality.en.light.svg" width="100%" alt="Full check path, October 2026: 2,528 passing tests on SQLite and 2,520 on MariaDB, 1,113 browser tests with axe in 53 files, Lighthouse accessibility score 1.0 in 15 runs on five pages, 34 header checks in production.">
 </picture>
 
-Roles, rules, the check path and the figures: [How cvitea is built](docs/how-its-built.md)
+Roles, rules and the check path: [How cvitea is built](docs/how-its-built.md)
 
 ## About this repository
 

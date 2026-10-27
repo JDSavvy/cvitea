@@ -13,27 +13,6 @@
 
 cvitea wird von einer Person mit Coding Agents (Claude Code) gebaut. Im Mittelpunkt stehen Steuern, Prüfen und Freigeben: Der Owner setzt die Ziele und die Regeln und entscheidet über jedes Release; eine koordinierende Agent-Session teilt die Arbeit in Aufgaben, gibt deren Pläne nach Regeln des Owners frei und nimmt ihre Ergebnisse ab; Coding Agents planen und bauen innerhalb dieser Regeln, unter automatischen Prüfungen und mit Freigabe des Owners.
 
-## In Zahlen
-
-Gezählt aus Git und aus dem Board der koordinierenden Session, bis Release 46. Die Commits stammen aus den Agent-Sessions: Jede Aufgabe committet ihre eigene Arbeit, und die koordinierende Session führt sie zusammen.
-
-| Kennzahl | Wert | Wie gezählt wird |
-|---|---|---|
-| Commits | 1’515 | Alle Commits auf dem Hauptzweig bis zum Commit von Release 46, davon 200 Merges |
-| Releases | 46 | Release-Nummern bis 46; einige frühe Releases tragen keine Nummer oder einen Buchstaben |
-| Aufgaben | 107 | Nummerierte Aufgaben auf dem Board, S1 bis S108; S9 wurde nie vergeben. Jede mit eigenem Auftrag, in eigener Session oder eigenem Subagent |
-| Version 1.0 | Oktober 2026 | Siehe [Stand](../README.de.md#stand) |
-
-<details>
-<summary>Die Befehle</summary>
-
-```bash
-git rev-list --count <Commit von Release 46>
-git rev-list --count --merges <Commit von Release 46>
-```
-
-</details>
-
 ## Rollen
 
 - **Owner.** Setzt Ziele und Regeln und trifft die Produktentscheide. Gibt die Pläne frei, die die Arbeitsweise ändern oder kritische Schritte enthalten, dazu jeden Deploy in Produktion und jeden Push. Über Inhalte und Personendaten entscheidet allein der Owner.
@@ -84,7 +63,7 @@ Der letzte volle Lauf, im Oktober 2026: 2’528 von 2’530 Pest-Tests bestanden
 
 ## AI Agents im Produkt
 
-Dieselbe Arbeitsweise läuft in cvitea selbst. AI Agents verbinden sich über das Model Context Protocol: Claude Desktop und claude.ai mit einer OAuth-Anmeldung, Agents auf der Kommandozeile mit einem persönlichen Token. Stand Release 46:
+Dieselbe Arbeitsweise läuft in cvitea selbst. AI Agents verbinden sich über das Model Context Protocol: Claude Desktop und claude.ai mit einer OAuth-Anmeldung, Agents auf der Kommandozeile mit einem persönlichen Token. Stand Oktober 2026:
 
 - 11 Werkzeuge: sieben lesen Laufbahndaten, Dokumente, Optionen, Upload-Status und Vorschau-Links; vier schreiben Vorschläge oder starten Uploads.
 - 9 Berechtigungsbereiche: einer für alles und acht engere nach Thema und Aktion, damit ein persönliches Token nur erreicht, was seine Aufgabe braucht. Claude Desktop und claude.ai melden sich mit dem Bereich für alles an; den Bereich für Vorschau-Links muss der Owner eigens vergeben.

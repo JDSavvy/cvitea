@@ -11,11 +11,11 @@
 
 # Roadmap
 
-Stand Release 46. Die Reihenfolge ist ein Plan, keine Zusage; je später ein Schritt, desto offener.
+Stand Oktober 2026. Die Reihenfolge ist ein Plan, keine Zusage; je später ein Schritt, desto offener.
 
 ## Reihenfolge und Gründe
 
-**Erst die eigene Nutzung.** Jeder Schritt nutzt die Daten des vorigen: Tracker und Bausteine speisen die Jobsuche, die Jobsuche den Assistenten, und der Assistent schreibt aus Bausteinen, die es schon gibt.
+Jeder Schritt nutzt die Daten des vorigen: Tracker und Bausteine speisen die Jobsuche, die Jobsuche den Assistenten, und der Assistent schreibt aus Bausteinen, die es schon gibt.
 
 ## Jetzt · v1.0 im Einsatz
 
