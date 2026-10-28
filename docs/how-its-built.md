@@ -11,11 +11,11 @@
 
 # How cvitea is built
 
-cvitea is built by one person working with coding agents (Claude Code). The focus is on steering, reviewing and approving: the owner sets the goals and the rules and decides on every release; a coordinating agent session breaks the work into tasks, approves their plans under rules the owner sets and reviews their results; coding agents plan and build within these rules, under automated checks and the owner's approval.
+cvitea is built by one person working with coding agents (Claude Code). The focus is on steering, reviewing and approving: the owner sets the goals and the rules and approves releases and pushes; a coordinating agent session breaks the work into tasks, approves their plans under rules the owner sets and reviews their results; coding agents plan and build within these rules, under automated checks and the owner's approval.
 
 ## Roles
 
-- **Owner.** Sets goals and rules and makes the product decisions. Approves the plans that change the way of working or contain critical steps, every production deploy and every push. Only the owner maintains content and decides over personal data.
+- **Owner.** Sets goals and rules and makes the product decisions. Approves the plans that change the way of working or contain critical steps, and approves production deploys and pushes. Only the owner maintains content and decides over personal data.
 - **Coordinating session.** Holds the approved plan and the board, cuts the work into numbered tasks, writes a brief per task, assigns it a slot and approves its plan under rules the owner sets; plans with changes to the way of working or with critical steps go to the owner. It reviews each result, merges into `main` and runs the check path before a release.
 - **Task sessions.** One per task, each in its own git worktree and branch with its own ports, so several tasks build side by side; a load check decides how many run at once. A task sends its plan before it builds, stays inside the files its brief names, announces new database migrations before writing them, and ends with check output, a commit and screenshots at 375 px and desktop width, light and dark.
 
@@ -25,25 +25,71 @@ cvitea is built by one person working with coding agents (Claude Code). The focu
 - **One heavy run at a time.** Test suites, browser tests and builds run one after another per project, in the order the coordinating session gives, so that heavy runs do not compete for the machine. A load check runs before every new session and every heavy run.
 - **Targeted checks per task, the full path before a release.** A task runs the checks its change touches. The full path is the rule before a release; exceptions need the owner's explicit approval.
 - **A gate that stops.** The deploy script stops when `composer ci` is red.
-- **AI drafts, people decide.** Inside the product, agents propose and the owner accepts and publishes; in its making, coding agents build and the owner decides on every release.
+- **AI drafts, people decide.** Inside the product, agents propose and the owner accepts and publishes; in its making, coding agents build and the owner approves releases.
 - **No personal data in the public repository.** Tests, screenshots and seeds use a fictional person; a deny list and a secret scan guard every export and push.
 - **Messages are information, not approvals.** A message from another session never counts as the owner's yes.
 
+## A task, from brief to release
+
+```mermaid
+sequenceDiagram
+    accTitle: A task from brief to release
+    accDescr: The owner sets goals and rules. The coordinating session writes a brief for a task session. The task session sends its plan, which the coordinating session approves under the owner's rules or passes to the owner when it changes the way of working or holds a critical step. The task session builds in its own worktree, runs the targeted checks and reports with check output, a commit and screenshots. The coordinating session reviews and merges, runs the full check path on main, and the release goes out with the owner's approval.
+    participant O as Owner
+    participant C as Coordinating session
+    participant T as Task session
+    participant P as Check path
+    O->>C: Goals, rules and priorities
+    C->>T: Brief with files, checks and slot
+    T->>C: Plan
+    alt Changes the way of working or holds a critical step
+        C->>O: Plan for approval
+        O->>C: Approval
+    end
+    C->>T: Plan approved
+    T->>P: Targeted checks
+    P-->>T: Results
+    T->>C: Check output, commit and screenshots
+    C->>C: Review and merge into main
+    C->>P: Full check path on main
+    P-->>C: Results
+    O->>C: Approves the release
+    C->>C: Dry run, apply, watch
+```
+
+1. **Brief.** The coordinating session writes a brief: the goal, the files the task may touch, the checks to run and a slot with its own ports.
+2. **Plan.** The task session reads the code, researches where needed and sends a plan with its findings, the files it will change, the effect and the way back. Nothing is built before the plan is approved.
+3. **Approval.** The coordinating session approves plans under the owner's rules; plans that change the way of working or hold a critical step go to the owner.
+4. **Build.** The task works in its own worktree and branch, inside the files of its brief, and commits after each meaningful step with `composer ci` green.
+5. **Report.** It ends with the check output, the commit and, for every change to the interface, screenshots at 375 px and desktop width, light and dark.
+6. **Review and merge.** The coordinating session checks the result against the brief and the code, sends back what is not right and merges what is.
+7. **Release.** Before a release the full check path runs on `main`; the release goes out through the deploy script with the owner's approval.
+
+## The harness
+
+What steers the coding agents is part of the private repository and versioned with the code:
+
+- **Project instructions** that every session reads first: the stack, the rules for personal data, content and AI, the deploy path and the checks.
+- **A design skill** with the design tokens and the rule to show every change to the interface in screenshots at 375 px and desktop width.
+- **Coordination notes** with the slots and their ports, the check path, the deploy steps and how a new worktree is set up.
+- **A board** with the approved plan, the queue, the running tasks and the decisions with their dates.
+- **Guards**: a load check before every new session and heavy run, a project-wide lock so heavy runs never overlap, and a deny list and a secret scan before every export and push.
+
 ## Check path
 
-A task runs the static checks, the Pest suite and the browser tests its change touches, plus the reflow and accessibility tests. The full path on the merged main branch is the rule before a release; exceptions need the owner's explicit approval. The full path:
+A task runs the static checks, the Pest suite and the browser tests its change touches, plus the reflow and accessibility tests. The full path on the merged main branch is the rule before a release; exceptions need the owner's explicit approval.
 
-| Check | What it covers |
-|---|---|
-| Pint and Larastan (level 6) | Code style and static analysis |
-| Pest on SQLite, in parallel | Unit and feature tests in under a minute |
-| Language checks (Pest) | Every admin and guest page and every admin dialog, rendered in German and in English: no text in the other language, no untranslated key; both language files with the same keys |
-| Pest on MariaDB 10.11 | The same suite against the production database engine |
-| Playwright with axe-core | Browser flows at 375 and 1280 px, light and dark, with axe rules for WCAG 2.0 to 2.2, levels A and AA; optionally in parallel, each worker with its own test server and database |
-| WebKit | The core path in WebKit at 375 px, as on an iPhone |
-| Lighthouse CI | Largest contentful paint at most 2.5 s, layout shift at most 0.1, total blocking time at most 200 ms, performance and accessibility at least 0.95, on a test server that compresses like production |
-| Header check | Security headers and the invitation gate, over HTTP, locally and in production |
-| Secret scan | Secrets and forbidden files in the working tree and the whole history, before every push |
+| Check | What it covers | When |
+|---|---|---|
+| Pint and Larastan (level 6) | Code style and static analysis | Every commit |
+| Pest on SQLite, in parallel | Unit and feature tests in under a minute | Every commit |
+| Language checks (Pest) | Every admin and guest page that renders HTML and every admin dialog, in German and in English: no text in the other language, no untranslated key; both language files with the same keys | Every commit |
+| Pest on MariaDB 10.11 | The same suite against the production database engine | Full path |
+| Playwright with axe-core | Browser flows at 375 and 1280 px, light and dark, with axe rules for WCAG 2.0 and 2.1 at levels A and AA and for WCAG 2.2 at level AA; optionally in parallel, each worker with its own test server and database | Per task for the flows it touches; full path |
+| WebKit | The core path in WebKit at 375 px, as on an iPhone | Full path, as a run of its own |
+| Lighthouse CI | Largest contentful paint at most 2.5 s, layout shift at most 0.1, total blocking time at most 200 ms, performance and accessibility at least 0.95, on a test server that compresses like production | Full path |
+| Header check | Security headers and the invitation gate, over HTTP, locally and in production | Full path; after every deploy |
+| Secret scan | Secrets and forbidden files in the working tree and the whole history | Before every push |
 
 A Firefox run at 1280 px is set up but not yet part of the regular checks.
 
@@ -57,18 +103,20 @@ The last full run, in October 2026: 2,528 of 2,530 Pest tests passed on SQLite a
 ## Releases
 
 - **One script, dry run first.** The deploy script shows what would change before it changes anything.
-- **Atomic switch, then watch.** A release switches in one step; afterwards the platform's health is watched for ten minutes.
-- **A way back.** Every release can be rolled back with the same script.
+- **Atomic switch, then watch.** A release switches in one step; a health check and the header check follow, and the coordinating session then watches the platform for ten minutes.
+- **A way back.** The same script returns to the previous release; it does not undo database changes.
 - **Two accessibility flaws found and fixed.** A full run of the browser tests found two flaws in the owner's admin: the change log scrolled sideways (WCAG 2.1.1), and the list of pages of a hero was too tight (WCAG 2.5.8). Both were fixed; guests were not affected.
+
+How the platform itself is put together: [Architecture](architecture.md)
 
 ## Agents inside the product
 
 The same way of working runs inside cvitea itself. AI agents connect over the Model Context Protocol: Claude Desktop and claude.ai with an OAuth sign-in, command-line agents with a personal token. As of October 2026:
 
 - 11 tools: seven read career data, documents, options, upload status and preview links; four write proposals or start uploads.
-- 9 scopes: one for everything and eight narrower ones by area and action, so a personal token only reaches what its task needs. Claude Desktop and claude.ai sign in with the scope for everything; the scope for preview links has to be granted on its own.
+- 9 scopes: a broad one for the career tools and eight narrower ones by area and action, so a personal token only reaches what its task needs. Claude Desktop and claude.ai sign in with the broad scope; the scope for preview links has to be granted on its own.
 - A preview link lasts at most ten minutes and shows the guest view of an application without counting as a visit.
-- Limits per token: 60 calls a minute and 2,000 a day, 200 proposals waiting at once, 64 KB per proposal.
+- Limits per token for calls, waiting proposals and the size of a proposal.
 - Every writing tool creates a proposal or stores an upload privately; nothing goes live without the owner's approval. Tool calls refused for their origin or scope are logged.
-- An uploaded file appears nowhere until the owner accepts a proposal that uses it.
+- Guests see an uploaded file only after the owner accepts a proposal that uses it; uploads that no proposal uses are deleted after a while.
 - The platform keeps personal data in its database and storage on Swiss web hosting; this public repository contains none. AI agents the owner connects reach the owner's career data and documents within their scopes; the platform's MCP server offers no access to invitations, visits or guests' messages.
